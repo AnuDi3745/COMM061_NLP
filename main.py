@@ -1,6 +1,7 @@
 import streamlit as st
 import torch
 from transformers import AutoTokenizer, AutoModelForTokenClassification
+import gspread
 from gspread_pandas import Spread,Client
 from google.oauth2 import service_account
 from datetime import datetime
@@ -13,16 +14,10 @@ def save_into_sheets(user_input, predictions):
     
     credentials = service_account.Credentials.from_service_account_info(st.secrets["gcp_service_account"], scopes = scope)
     client = gspread.authorize(credentials)
-    spreadsheetname = "Token Classification Logs"
-    spread = Spread(spreadsheetname,client = client)
-    worksheet = sh.worksheet("Sheet1")
-    df = DataFrame(worksheet.get_all_records())
-    
-
+    sheet = client.open("Token Classification Logs").sheet1
     timestamp = datetime.now().isoformat()
     predictions_list = ", ".join([f"{w}:{l}" for w, l in predictions])
-    col = [predictions_list,timestamp]
-    spread.df_to_sheet(dataframe[col],sheet = spreadsheetname,index = False)
+    sheet.append_row([timestamp, user_input, predictions_list])
 
 # Set up the Streamlit app
 st.set_page_config(page_title="Token Classification", layout="wide")
