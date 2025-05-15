@@ -8,9 +8,15 @@ from datetime import datetime
 #torch.classes = None  
 
 def save_into_sheets(user_input, predictions):
-    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-    creds = ServiceAccountCredentials.from_json_keyfile_name("service_account.json", scope)
-    client = gspread.authorize(creds)
+    scopes = [
+        "https://www.googleapis.com/auth/spreadsheets",
+    ]
+    skey = st.secrets["gcp_service_account"]
+    credentials = Credentials.from_service_account_info(
+        skey,
+        scopes=scopes,
+    )
+    client = gspread.authorize(credentials)
     sheet = client.open("Token Classification Logs").sheet1
     timestamp = datetime.now().isoformat()
     predictions_list = ", ".join([f"{w}:{l}" for w, l in predictions])
