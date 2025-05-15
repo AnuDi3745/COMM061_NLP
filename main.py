@@ -50,8 +50,7 @@ if st.button("🔍 Detect Abbreviations"):
     if not text_input.strip():
         st.warning("Please enter a sentence.")
     else:
-        #model_name = f"slightlycodic/{choice}"
-        model_name = "aadityaasingh/roberta-finetuned-ner"
+        model_name = f"slightlycodic/{choice}"
         tokenizer = AutoTokenizer.from_pretrained(model_name)
         words = text_input.strip().split()
         encoding = tokenizer(
