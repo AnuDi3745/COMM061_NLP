@@ -3,3 +3,4 @@ torch>=2.1
 transformers>=4.37
 gspread
 oauth2client
+gspread-pandas
