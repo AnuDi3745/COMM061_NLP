@@ -37,7 +37,7 @@ label_colors = {
 
 choice = st.selectbox(
     "Choose a model for the task",
-    ("TC-ABB-ROBERTA", "TC-ABB-BERT"),
+    ("TC-ABB-BERT","TC-ABB-ROBERTA","RoBERTa-Ada","RoBERTA-ScheduleFree"),
     index=None,
     placeholder="Select model...",
 )
