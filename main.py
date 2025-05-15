@@ -9,7 +9,7 @@ import time
 
 #torch.classes = None  
 
-def save_into_sheets(user_input, predictions):
+def save_into_sheets(user_input, time_taken, predictions):
     scope = ['https://spreadsheets.google.com/feeds',
              'https://www.googleapis.com/auth/drive']
     
@@ -18,7 +18,7 @@ def save_into_sheets(user_input, predictions):
     sheet = client.open("Token Classification Logs").sheet1
     timestamp = datetime.now().isoformat()
     predictions_list = ", ".join([f"{w}:{l}" for w, l in predictions])
-    sheet.append_row([timestamp, user_input, predictions_list])
+    sheet.append_row([timestamp, round(time_taken,3), user_input, predictions_list])
 
 # Set up the Streamlit app
 st.set_page_config(page_title="Token Classification", layout="wide")
@@ -75,7 +75,7 @@ if st.button("🔍 Detect Abbreviations"):
             seen.add(word_id)
                 
         try:
-            save_into_sheets(text_input.strip(), results)
+            save_into_sheets(text_input.strip(),time_taken, results)
         except Exception as e:
             st.error("Failed to save log to Google Sheets.")
             st.exception(e)    
