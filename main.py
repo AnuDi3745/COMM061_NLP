@@ -11,9 +11,8 @@ def save_into_sheets(user_input, predictions):
     scope = ['https://spreadsheets.google.com/feeds',
              'https://www.googleapis.com/auth/drive']
     
-    credentials = service_account.Credentials.from_service_account_info(
-                    st.secrets["gcp_service_account"], scopes = scope)
-    client = Client(scope=scope,creds=credentials)
+    credentials = service_account.Credentials.from_service_account_info(st.secrets["gcp_service_account"], scopes = scope)
+    client = gspread.authorize(credentials)
     spreadsheetname = "Token Classification Logs"
     spread = Spread(spreadsheetname,client = client)
     worksheet = sh.worksheet("Sheet1")
