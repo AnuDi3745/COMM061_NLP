@@ -54,8 +54,11 @@ if st.button("🔍 Detect Abbreviations"):
         )
         inputs = {k: v for k, v in encoding.items() if k != "offset_mapping"}
         with torch.no_grad():
+            start_time = time.time()
             outputs = model(**inputs)
             predictions = torch.argmax(outputs.logits, dim=2)
+            time_taken = time.time()-start_time
+        print(time_taken)
 
         word_ids = encoding.word_ids()
         predicted_labels = predictions[0].tolist()
