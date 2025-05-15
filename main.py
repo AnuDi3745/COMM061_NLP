@@ -69,7 +69,6 @@ if st.button("🔍 Detect Abbreviations"):
             start_time = time.time()
             outputs = model(**inputs)
             predictions = torch.argmax(outputs.logits, dim=2)
-            st.write(model_name)
 
 
         word_ids = encoding.word_ids()
