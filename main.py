@@ -62,8 +62,7 @@ if st.button("🔍 Detect Abbreviations"):
 
         word_ids = encoding.word_ids()
         predicted_labels = predictions[0].tolist()
-        time_taken = time.time()-start_time
-        st.write(time_taken)
+
         results = []
         seen = set()
        
@@ -99,6 +98,8 @@ if st.button("🔍 Detect Abbreviations"):
                 )
         st.markdown("### 🧾 Tagged Sentence")
         st.markdown(styled_sentence, unsafe_allow_html=True)
+        time_taken = time.time()-start_time
+        st.write(time_taken)
 st.markdown(
     '<a href="https://docs.google.com/spreadsheets/d/1RKW3WQ9v8KthoPPuHaUTWT32M36u88g6h8_3jOLjPwo/edit?usp=sharing" target="_blank">📊 View Logs in Google Sheets</a>',
     unsafe_allow_html=True
