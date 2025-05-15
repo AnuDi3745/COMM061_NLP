@@ -1,7 +1,7 @@
 import streamlit as st
 import torch
 from transformers import AutoTokenizer, AutoModelForTokenClassification
-import gspread
+from gspread_pandas import Spread,Client
 from google.oauth2 import service_account
 from datetime import datetime
 
@@ -16,7 +16,7 @@ def save_into_sheets(user_input, predictions):
     client = Client(scope=scope,creds=credentials)
     spreadsheetname = "Token Classification Logs"
     spread = Spread(spreadsheetname,client = client)
-    worksheet = sh.worksheet("sheet1")
+    worksheet = sh.worksheet("Sheet1")
     df = DataFrame(worksheet.get_all_records())
     
 
