@@ -8,9 +8,14 @@ from datetime import datetime
 #torch.classes = None  
 
 def save_into_sheets(user_input, predictions):
-    skey = st.secrets
+    scopes = [
+        "https://www.googleapis.com/auth/spreadsheets",
+    ]
+    
+    skey = st.secrets["gcp_service_account"]
     credentials = Credentials.from_service_account_info(
-        skey
+        skey,
+        scopes=scopes,
     )
     client = gspread.authorize(credentials)
     sheet = client.open("Token Classification Logs").sheet1
