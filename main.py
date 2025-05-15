@@ -26,11 +26,6 @@ st.title("🧠 Token Classification for Abbreviation Detection")
 st.markdown("Detect abbreviations (AC) and their long forms (LF)")
 
 
-# Load the best model
-model_name = "slightlycodic/TC-ABB-BERT"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForTokenClassification.from_pretrained(model_name)
-
 label_list = ['O', 'B-AC', 'B-LF', 'I-LF']
 
 label_colors = {
@@ -40,6 +35,18 @@ label_colors = {
     "O": None            
 }
 text_input = st.text_area("Enter a sentence:")
+
+model = st.selectbox(
+    "Choose a model for the task",
+    ("TC-ABB-ROBERTA", "TC-ABB-BERT"),
+    index=None,
+    placeholder="Select model...",
+)
+
+# Load the best model
+model_name = f"slightlycodic/{model}"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForTokenClassification.from_pretrained(model_name)
 
 if st.button("🔍 Detect Abbreviations"):
     if not text_input.strip():
