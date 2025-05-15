@@ -34,7 +34,6 @@ label_colors = {
     "I-LF": "#2ecc71",   
     "O": None            
 }
-text_input = st.text_area("Enter a sentence:")
 
 choice = st.selectbox(
     "Choose a model for the task",
@@ -42,6 +41,8 @@ choice = st.selectbox(
     index=None,
     placeholder="Select model...",
 )
+
+text_input = st.text_area("Enter a sentence:")
 
 
 
