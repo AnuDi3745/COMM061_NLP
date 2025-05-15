@@ -95,14 +95,16 @@ if st.button("🔍 Detect Abbreviations"):
         st.markdown("### 🧾 Tagged Sentence")
         st.markdown(styled_sentence, unsafe_allow_html=True)
 
+        time_taken = time.time()-start_time
+        st.write(time_taken)   
+
+
         try:
             save_into_sheets(text_input.strip(),time_taken, results)
         except Exception as e:
             st.error("Failed to save log to Google Sheets.")
             st.exception(e) 
             
-        time_taken = time.time()-start_time
-        st.write(time_taken)   
 
 st.markdown(
     '<a href="https://docs.google.com/spreadsheets/d/1RKW3WQ9v8KthoPPuHaUTWT32M36u88g6h8_3jOLjPwo/edit?usp=sharing" target="_blank">📊 View Logs in Google Sheets</a>',
