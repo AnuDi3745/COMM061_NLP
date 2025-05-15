@@ -2,7 +2,7 @@ import streamlit as st
 import torch
 from transformers import AutoTokenizer, AutoModelForTokenClassification
 import gspread
-from oauth2client.service_account import ServiceAccountCredentials
+from google.oauth2.service_account import Credentials
 from datetime import datetime
 
 #torch.classes = None  
@@ -11,7 +11,7 @@ def save_into_sheets(user_input, predictions):
     scopes = [
         "https://www.googleapis.com/auth/spreadsheets",
     ]
-    skey = st.secrets["gcp_service_account"]
+    skey = st.secrets
     credentials = Credentials.from_service_account_info(
         skey,
         scopes=scopes,
