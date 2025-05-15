@@ -13,11 +13,17 @@ def save_into_sheets(user_input, predictions):
     
     credentials = service_account.Credentials.from_service_account_info(
                     st.secrets["gcp_service_account"], scopes = scope)
-    client = gspread.authorize(credentials)
-    sheet = client.open("Token Classification Logs").sheet1
+    client = Client(scope=scope,creds=credentials)
+    spreadsheetname = "Token Classification Logs"
+    spread = Spread(spreadsheetname,client = client)
+    worksheet = sh.worksheet("sheet1")
+    df = DataFrame(worksheet.get_all_records())
+    
+
     timestamp = datetime.now().isoformat()
     predictions_list = ", ".join([f"{w}:{l}" for w, l in predictions])
-    sheet.append_row([timestamp, user_input, predictions_list])
+    col = [predictions_list,timestamp]
+    spread.df_to_sheet(dataframe[col],sheet = spreadsheetname,index = False)
 
 # Set up the Streamlit app
 st.set_page_config(page_title="Token Classification", layout="wide")
