@@ -58,14 +58,15 @@ if st.button("🔍 Detect Abbreviations"):
             start_time = time.time()
             outputs = model(**inputs)
             predictions = torch.argmax(outputs.logits, dim=2)
-            time_taken = time.time()-start_time
-        st.write(time_taken)
+
 
         word_ids = encoding.word_ids()
         predicted_labels = predictions[0].tolist()
-
+        time_taken = time.time()-start_time
+        st.write(time_taken)
         results = []
         seen = set()
+       
         for idx, word_id in enumerate(word_ids):
             if word_id is None or word_id in seen:
                 continue
