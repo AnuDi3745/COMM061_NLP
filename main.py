@@ -36,15 +36,14 @@ label_colors = {
 }
 text_input = st.text_area("Enter a sentence:")
 
-model = st.selectbox(
+choice = st.selectbox(
     "Choose a model for the task",
     ("TC-ABB-ROBERTA", "TC-ABB-BERT"),
     index=None,
     placeholder="Select model...",
 )
 
-# Load the best model
-model_name = f"slightlycodic/{model}"
+model_name = f"slightlycodic/{choice}"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForTokenClassification.from_pretrained(model_name)
 
