@@ -96,8 +96,6 @@ if st.button("🔍 Detect Abbreviations"):
         st.markdown(styled_sentence, unsafe_allow_html=True)
 
         time_taken = time.time()-start_time
-        st.write(time_taken)   
-
 
         try:
             save_into_sheets(text_input.strip(),time_taken, results)
