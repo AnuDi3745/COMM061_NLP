@@ -2,7 +2,7 @@ import streamlit as st
 import torch
 from transformers import AutoTokenizer, AutoModelForTokenClassification
 import gspread
-from google.oauth2.service_account import Credentials
+from google.oauth2 import service_account
 from datetime import datetime
 
 #torch.classes = None  
