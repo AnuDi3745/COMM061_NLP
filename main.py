@@ -43,9 +43,7 @@ choice = st.selectbox(
     placeholder="Select model...",
 )
 
-model_name = f"slightlycodic/{choice}"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForTokenClassification.from_pretrained(model_name)
+
 
 if st.button("🔍 Detect Abbreviations"):
     if not text_input.strip():
@@ -61,6 +59,9 @@ if st.button("🔍 Detect Abbreviations"):
         )
         inputs = {k: v for k, v in encoding.items() if k != "offset_mapping"}
         with torch.no_grad():
+            model_name = f"slightlycodic/{choice}"
+            tokenizer = AutoTokenizer.from_pretrained(model_name)
+            model = AutoModelForTokenClassification.from_pretrained(model_name)
             start_time = time.time()
             outputs = model(**inputs)
             predictions = torch.argmax(outputs.logits, dim=2)
