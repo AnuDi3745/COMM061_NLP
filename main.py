@@ -37,7 +37,7 @@ label_colors = {
 
 choice = st.selectbox(
     "Choose a model for the task",
-    ("TC-ABB-BERT","TC-ABB-ROBERTA","RoBERTa-Ada","RoBERTA-ScheduleFree"),
+    ("TC-ABB-BERT","TC-ABB-ROBERTA","roberta-finetuned-ner"),
     index=None,
     placeholder="Select model...",
 )
@@ -50,7 +50,10 @@ if st.button("🔍 Detect Abbreviations"):
     if not text_input.strip():
         st.warning("Please enter a sentence.")
     else:
-        model_name = f"slightlycodic/{choice}"
+        if choice == "roberta-finetuned-ner":
+            model_name = f"aadityaasingh/{choice}"
+        else:
+            model_name = f"slightlycodic/{choice}"
         tokenizer = AutoTokenizer.from_pretrained(model_name)
         words = text_input.strip().split()
         encoding = tokenizer(
